@@ -18,6 +18,7 @@ source "amazon-ebs" "ubuntu" {
   vpc_id        = "vpc-04fdf08d31a95112d"
   subnet_id     = "subnet-0a50bba37c19b0625"
   deprecate_at  = "2023-07-29T18:00:00Z"
+  ssh_timeout   = "8m"
 
   source_ami_filter {
     filters = {
@@ -32,10 +33,11 @@ source "amazon-ebs" "ubuntu" {
 }
 
 build {
-  name = "learn-packer"
+  name = "lab-packer"
   sources = [
     "source.amazon-ebs.ubuntu"
   ]
+
   provisioner "ansible" {
     playbook_file = "./playbooks/apache2.yml"
   }
